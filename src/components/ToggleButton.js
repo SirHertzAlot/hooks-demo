@@ -1,17 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 
-const ToggleButton = ({init}) => {
+
+const ToggleButton = ({init, toggle}) => {
+  const [isOn, setIsOn] = useState(init);
+  const toggleButtonState = () => {
+    if(isOn){
+      setIsOn(false);
+      toggle(false);
+    } else {
+      setIsOn(true);
+      toggle(true);
+    }
+  }
   return (
-    <div className={init ? "toggle-btn toggle-btn-on" : "toggle-btn"}>
+    <div onClick={toggleButtonState} className={isOn ? "toggle-btn toggle-btn-on" : "toggle-btn"}>
       <div
-        className={init ? "toggle-slider toggle-slider-on" : "toggle-slider"}
+        className={isOn ? "toggle-slider toggle-slider-on" : "toggle-slider"}
       />
     </div>
   );
 };
 
 ToggleButton.defaultProps = {
-  init: false
+  init: false,
+  toggle: () => {}
 };
 
 export default ToggleButton;
